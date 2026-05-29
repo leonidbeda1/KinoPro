@@ -4,12 +4,19 @@ export async function GET(request: Request) {
 
   const apiKey = process.env.NEXT_PUBLIC_TMDB_KEY;
 
-  const res = await fetch(
-    `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=ru-RU&page=${page}`
-  );
+  console.log("TMDB KEY:", apiKey);
 
-  const data = await res.json();
+  const url = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=ru-RU&page=${page}`;
 
-  // TMDB отдаёт 20 фильмов — мы берём только 10
-  return Response.json(data.results.slice(0, 10));
+  try {
+    const res = await fetch(url);
+
+    const data = await res.json();
+    console.log("TMDB RESPONSE:", data);
+
+    return Response.json(data.results); // ← ВАЖНО!
+  } catch (error) {
+    console.error("SERVER ERROR:", error);
+    return Response.json({ error: "Server error" }, { status: 500 });
+  }
 }

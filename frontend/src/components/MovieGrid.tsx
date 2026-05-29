@@ -2,96 +2,67 @@
 
 import { useEffect, useState } from "react";
 
-export default function MovieGrid({ page }) {
-  const [movies, setMovies] = useState([]);
+export default function MovieGrid() {
+  const [movies, setMovies] = useState<any[]>([]);
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
     fetch(`/api/movies?page=${page}`)
       .then((res) => res.json())
-      .then((data) => setMovies(data));
+      .then((data) => {
+        console.log("MOVIES:", data);
+        setMovies(Array.isArray(data) ? data : []);
+      })
+      .catch((err) => {
+        console.error("FETCH ERROR:", err);
+        setMovies([]);
+      });
   }, [page]);
 
   return (
     <div className="flex flex-col gap-6 overflow-x-hidden">
       {/* Фильмы */}
-      {movies.map((movie) => (
-        <a
-          key={movie.id}
-          href={`/film/${movie.id}`}
-          className="flex items-start gap-6 bg-[#111] p-4 rounded-lg hover:bg-[#1a1a1a] transition"
-        >
-          <img
-            src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`}
-            alt={movie.title}
-            className="w-32 h-48 object-cover rounded-md"
-          />
+      {movies.length === 0 && (
+        <div className="text-center opacity-70">Фильмы загружаются...</div>
+      )}
 
-          <div>
-            <h3 className="text-xl font-semibold text-white">{movie.title}</h3>
-            <p className="text-gray-400">{movie.release_date?.slice(0, 4)}</p>
-
-            <div className="flex items-center gap-1 mb-2">
-              <span className="text-yellow-400">⭐</span>
-              <span className="text-gray-300">
-                {movie.vote_average.toFixed(1)}/10
-              </span>
-            </div>
-
-            <p className="text-gray-300 text-sm max-w-xl">
-              {movie.overview}
-            </p>
-          </div>
-        </a>
-      ))}
-
-      {/* Пагинация — как на Киного */}
-      <div className="flex justify-center items-center gap-1 mt-8 flex-wrap bg-[#0d0d0d] p-3 rounded-md">
-        
-        {/* Кнопка "Раньше" */}
-        <a
-          href={`/films?page=${page - 1}`}
-          className={`px-3 py-1 rounded ${
-            page === 1
-              ? "bg-[#333] text-gray-500"
-              : "bg-[#222] text-gray-300 hover:bg-[#333]"
-          }`}
-        >
-          Раньше
-        </a>
-
-        {/* Номера страниц 1–10 */}
-        {[...Array(10)].map((_, i) => (
+      {movies.length > 0 &&
+        movies.map((movie) => (
           <a
-            key={i}
-            href={`/films?page=${i + 1}`}
-            className={`px-3 py-1 rounded ${
-              page === i + 1
-                ? "bg-pink-600 text-white"
-                : "bg-[#222] text-gray-300 hover:bg-[#333]"
-            }`}
+            key={movie.id}
+            href={`/film/${movie.id}`}
+            className="flex gap-4 items-center bg-[#111] p-4 rounded-lg hover:bg-[#1a1a1a] transition"
           >
-            {i + 1}
+            <img
+              src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
+              alt={movie.title}
+              className="w-20 h-28 object-cover rounded"
+            />
+
+            <div>
+              <h3 className="text-lg font-semibold">{movie.title}</h3>
+              <p className="text-sm opacity-70">{movie.release_date}</p>
+            </div>
           </a>
         ))}
 
-        {/* Многоточие */}
-        <span className="px-3 py-1 text-gray-400">...</span>
-
-        {/* Последняя страница */}
-        <a
-          href={`/films?page=8422`}
-          className="px-3 py-1 bg-[#222] text-gray-300 rounded hover:bg-[#333]"
+      {/* Пагинация */}
+      <div className="flex justify-between mt-4">
+        <button
+          onClick={() => setPage((p) => Math.max(1, p - 1))}
+          className="px-4 py-2 bg-[#222] rounded hover:bg-[#333]"
         >
-          8422
-        </a>
+          Назад
+        </button>
 
-        {/* Кнопка "Позже" */}
-        <a
-          href={`/films?page=${page + 1}`}
-          className="px-3 py-1 bg-[#222] text-gray-300 rounded hover:bg-[#333]"
+        <span className="opacity-70">Страница {page}</span>
+
+        <button
+          onClick={() => setPage((p) => p + 1)}
+          className="px-4 py-2 bg-[#222] rounded hover:bg-[#333]"
         >
-          Позже
-        </a>
+          Вперёд
+        </button>
       </div>
     </div>
   );
