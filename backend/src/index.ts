@@ -1,14 +1,24 @@
 import express from 'express';
 import cors from 'cors';
-import moviesRoutes from './routes/movies';
+import dotenv from 'dotenv';
+import moviesRouter from './routes/movies';
+
+dotenv.config();
 
 const app = express();
+const PORT = process.env.PORT || 5000;
+
 app.use(cors());
 app.use(express.json());
 
-app.use('/api/movies', moviesRoutes);
+// Routes
+app.use('/api/movies', moviesRouter);
 
-const PORT = 5000;
+// Health check
+app.get('/health', (req, res) => {
+  res.json({ status: 'OK' });
+});
+
 app.listen(PORT, () => {
-  console.log(`Backend running on http://localhost:${PORT}`);
+  console.log(`Server is running on http://localhost:${PORT}`);
 });
