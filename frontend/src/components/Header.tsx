@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
+import { useState } from "react";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -21,16 +21,28 @@ export default function Header() {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex gap-8">
-            <a href="#" className="text-gray-300 hover:text-white transition-colors">
+            <a
+              href="/"
+              className="text-gray-300 hover:text-white transition-colors"
+            >
               Главная
             </a>
-            <a href="#" className="text-gray-300 hover:text-white transition-colors">
+            <a
+              href="/films"
+              className="text-gray-300 hover:text-white transition-colors"
+            >
               Фильмы
             </a>
-            <a href="#" className="text-gray-300 hover:text-white transition-colors">
+            <a
+              href="/series"
+              className="text-gray-300 hover:text-white transition-colors"
+            >
               Сериалы
             </a>
-            <a href="#" className="text-gray-300 hover:text-white transition-colors">
+            <a
+              href="/favorites"
+              className="text-gray-300 hover:text-white transition-colors"
+            >
               Избранное
             </a>
           </nav>
@@ -59,7 +71,7 @@ export default function Header() {
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth={2}
-                d={isOpen ? 'M6 18L18 6M6 6l12 12' : 'M4 6h16M4 12h16M4 18h16'}
+                d={isOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"}
               />
             </svg>
           </button>
@@ -68,16 +80,28 @@ export default function Header() {
         {/* Mobile Navigation */}
         {isOpen && (
           <nav className="md:hidden pb-4 space-y-2">
-            <a href="#" className="block px-4 py-2 text-gray-300 hover:text-white hover:bg-slate-800 rounded-lg">
+            <a
+              href="#"
+              className="block px-4 py-2 text-gray-300 hover:text-white hover:bg-slate-800 rounded-lg"
+            >
               Главная
             </a>
-            <a href="#" className="block px-4 py-2 text-gray-300 hover:text-white hover:bg-slate-800 rounded-lg">
+            <a
+              href="#"
+              className="block px-4 py-2 text-gray-300 hover:text-white hover:bg-slate-800 rounded-lg"
+            >
               Фильмы
             </a>
-            <a href="#" className="block px-4 py-2 text-gray-300 hover:text-white hover:bg-slate-800 rounded-lg">
+            <a
+              href="#"
+              className="block px-4 py-2 text-gray-300 hover:text-white hover:bg-slate-800 rounded-lg"
+            >
               Сериалы
             </a>
-            <a href="#" className="block px-4 py-2 text-gray-300 hover:text-white hover:bg-slate-800 rounded-lg">
+            <a
+              href="#"
+              className="block px-4 py-2 text-gray-300 hover:text-white hover:bg-slate-800 rounded-lg"
+            >
               Избранное
             </a>
           </nav>

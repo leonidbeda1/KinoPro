@@ -3,7 +3,7 @@ export default function Features() {
     {
       icon: '🎬',
       title: 'Огромная библиотека',
-      description: 'Более 10 000 фильмов и сериалов на любой вкус',
+      description: 'Более 500 000 фильмов и сериалов на любой вкус',
     },
     {
       icon: '⚡',
@@ -17,8 +17,8 @@ export default function Features() {
     },
     {
       icon: '👥',
-      title: 'Семейные профили',
-      description: 'Создайте профили для всей семьи',
+      title: 'Бесплатно',
+      description: 'Чутка рекламы для потдержки нашего сервиса',
     },
   ];
 

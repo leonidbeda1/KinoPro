@@ -52,11 +52,11 @@ export default function Footer() {
         {/* Divider */}
         <div className="border-t border-slate-800 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center text-sm text-gray-400">
-            <p>&copy; 2024 KinoPro. Все права защищены.</p>
+            <p>&copy; 2026 KinoPro</p>
             <div className="flex gap-4 mt-4 md:mt-0">
-              <a href="#" className="hover:text-white transition-colors">Facebook</a>
               <a href="#" className="hover:text-white transition-colors">Instagram</a>
-              <a href="#" className="hover:text-white transition-colors">Twitter</a>
+              <a href="#" className="hover:text-white transition-colors">Telegram</a>
+              <a href="#" className="hover:text-white transition-colors">TikTok</a>
             </div>
           </div>
         </div>
